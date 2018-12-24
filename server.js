@@ -28,10 +28,8 @@ app.get('/todos', (req, res) => {
 app.delete('/todos:id', (req, res) => {
 	var id = req.params.id;
 
-	Todo.findByIdAndDelete({
-		_id:id
-	}).then((doc) => {
-		res.send(doc);
+	Todo.findByIdAndRemove(id).then((todo) => {
+		res.send(todo);
 	});
 });
 
