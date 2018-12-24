@@ -25,7 +25,7 @@ app.get('/todos', (req, res) => {
 	});
 });
 
-app.delete('/todos:id', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
 	var id = req.params.id;
 
 	Todo.findByIdAndRemove(id).then((todo) => {
