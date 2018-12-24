@@ -25,6 +25,16 @@ app.get('/todos', (req, res) => {
 	});
 });
 
+app.delete('/todos:id', (req, res) => {
+	var id = req.params.id;
+
+	Todo.findByIdAndDelete({
+		_id:id
+	}).then((doc) => {
+		res.send(doc);
+	});
+});
+
 app.listen(port, () => {
 	console.log('Server is up on port '+port);
 });
