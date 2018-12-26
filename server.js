@@ -14,6 +14,7 @@ app.use((req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
 	}
+	next();
 });
 
 const port = process.env.PORT || 3000;
