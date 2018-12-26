@@ -15,7 +15,7 @@ const Todo = mongoose.model('Todo', {
 	completedAt: {
 		type: Number,
 		required: true,
-		default: Math.floor((new Date()).getTime() / 1000);
+		default: Math.floor((new Date()).getTime() / 1000)
 	}
 });
 
