@@ -1,6 +1,8 @@
 const {mongoose} = require('./db/mongoose.js');
 const {Todo} = require('./db/Todo.js');
+const {User} = require('./db/User.js');
 
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -43,6 +45,23 @@ app.delete('/todos/:id', (req, res) => {
 
 	Todo.findByIdAndRemove(id).then((todo) => {
 		res.send(todo);
+	});
+});
+
+app.post('/users', (req, res) => {
+	var body = _.pick(req.body, ['email', 'password']);
+	var NewUser = new User(body);
+
+	NewUser.save().then((doc) => {
+		res.send(doc);
+	}, (e) => {
+		res.send(e);
+	});
+});
+
+app.get('/users', (req, res) => {
+	User.find().then((doc) => {
+		res.send(doc);
 	});
 });
 
