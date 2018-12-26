@@ -5,6 +5,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 var app = express();
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+	);
+	if (req.method === 'OPTIONS') {
+		res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+	}
+});
+
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
