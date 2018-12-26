@@ -12,10 +12,9 @@ const Todo = mongoose.model('Todo', {
 		required: true,
 		default: false
 	},
-	completedAt: {
-		type: Number,
-		required: true,
-		default: Math.floor((new Date()).getTime() / 1000)
+	notes: {
+		type: String,
+		default: 'Notes'
 	}
 });
 
