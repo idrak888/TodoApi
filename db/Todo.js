@@ -14,6 +14,7 @@ const Todo = mongoose.model('Todo', {
 	},
 	notes: {
 		type: String,
+		required: true,
 		default: 'Notes'
 	}
 });
