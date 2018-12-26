@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
 	var NewTodo = new Todo({
-		text: req.body.text
+		text: req.body.text,
+		notes: req.body.notes
 	});
 
 	NewTodo.save().then((doc) => {
