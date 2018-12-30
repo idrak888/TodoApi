@@ -68,7 +68,9 @@ app.get('/users/me', (req, res) => {
 
 	User.findByToken(token).then((user) => {
 		res.send(user);
-	})
+	}).catch(e => {
+		res.status(401).send();
+	});
 });
 
 app.get('/users', (req, res) => {
