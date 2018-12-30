@@ -63,6 +63,14 @@ app.post('/users', (req, res) => {
 	});
 });
 
+app.get('/users/me', (req, res) => {
+	var token = req.header('X-Auth');
+
+	User.findByToken(token).then((user) => {
+		res.send(user);
+	})
+});
+
 app.get('/users', (req, res) => {
 	User.find().then((doc) => {
 		res.send(doc);
