@@ -1,6 +1,7 @@
 const {mongoose} = require('./db/mongoose.js');
 const {Todo} = require('./db/Todo.js');
 const {User} = require('./db/User.js');
+const {authenticate} = require('./authenticate.js');
 
 const _ = require('lodash');
 const express = require('express');
@@ -63,14 +64,8 @@ app.post('/users', (req, res) => {
 	});
 });
 
-app.get('/users/me', (req, res) => {
-	var token = req.header('X-Auth');
-
-	User.findByToken(token).then((user) => {
-		res.send(user);
-	}).catch(e => {
-		res.status(401).send();
-	});
+app.get('/users/me', authenticate, (req, res) => {
+	res.send(req.user);
 });
 
 app.get('/users', (req, res) => {
