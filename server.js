@@ -48,6 +48,12 @@ app.delete('/todos/:id', (req, res) => {
 	});
 });
 
+app.delete('/users', (req, res) => {
+	User.find().remove().then((doc) => {
+		res.send(doc);
+	});
+});
+
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 	var user = new User(body);
