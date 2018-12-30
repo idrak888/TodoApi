@@ -53,6 +53,7 @@ app.post('/users', (req, res) => {
 	var user = new User(body);
 
 	user.save().then((user) => {
+		user.generateAuthToken();
 		res.send(user);
 	});
 });
