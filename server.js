@@ -60,7 +60,7 @@ app.post('/users', (req, res) => {
 
 	user.save().then(() => {
 		user.generateAuthToken();
-		res.send(user);
+		res.header('x-auth', user.generateAuthToken()).send(user);
 	});
 });
 
