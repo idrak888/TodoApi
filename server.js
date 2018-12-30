@@ -50,13 +50,15 @@ app.delete('/todos/:id', (req, res) => {
 
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
-	var NewUser = new User(body);
+	var user = new User(body);
 
-	NewUser.save().then((doc) => {
-		res.send(doc);
-	}, (e) => {
+	user.save().then((user) => {
+		return user.generateAuthToken();
+	}).then(token => {
+		res.header('x-auth', token).send(user);
+	}).catch((e) => {
 		res.send(e);
-	});
+	})
 });
 
 app.get('/users', (req, res) => {
