@@ -81,7 +81,13 @@ app.post('/users/login', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 
 	User.findOne({email:body.email}).then(user => {
-		res.send(user);
+		if (user.password === body.password) {
+			res.send(user);
+		}else {
+			res.status(401).send('Wrong password or email.');
+		}
+	}).catch(e => {
+		res.status(400).send();
 	});	
 });
 
