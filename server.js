@@ -82,12 +82,12 @@ app.post('/users/login', (req, res) => {
 
 	User.findOne({email:body.email}).then(user => {
 		if (user.password === body.password) {
-			res.send(user);
+			res.send(user.tokens);
 		}else {
 			res.status(401).send('Wrong password or email.');
 		}
 	}).catch(e => {
-		res.status(400).send();
+		res.status(400).send("Email not signed up");
 	});	
 });
 
