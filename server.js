@@ -50,6 +50,8 @@ app.delete('/todos/:id', (req, res) => {
 	});
 });
 
+//users
+
 app.delete('/users', (req, res) => {
 	User.find().remove().then((doc) => {
 		res.send(doc);
@@ -73,6 +75,14 @@ app.get('/users', (req, res) => {
 	User.find().then((doc) => {
 		res.send(doc);
 	});
+});
+
+app.post('/users/login', (req, res) => {
+	var body = _.pick(req.body, ['email', 'password']);
+
+	User.findOne({email:body.email}).then(user => {
+		res.send(user);
+	});	
 });
 
 app.listen(port, () => {
