@@ -82,7 +82,8 @@ app.post('/users/login', (req, res) => {
 
 	User.findOne({email:body.email}).then(user => {
 		if (user.password === body.password) {
-			res.send('User '+user.email+' logged in.');
+			var token = user.generateAuthToken();
+			res.send(token);
 		}else {
 			res.status(401).send('Wrong password or email.');
 		}
