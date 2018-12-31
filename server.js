@@ -67,10 +67,7 @@ app.post('/users', (req, res) => {
 
 app.post('/users/login', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
-	var email =  body.email;
-	var password = body.password;
-
-	res.send(User.findByCredentials(email, password));
+	res.send(body);
 });
 
 app.get('/users/me', authenticate, (req, res) => {
