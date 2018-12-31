@@ -6,6 +6,7 @@ const {authenticate} = require('./authenticate.js');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 var app = express();
 app.use((req, res, next) => {
@@ -62,6 +63,14 @@ app.post('/users', (req, res) => {
 	user.save().then(() => {
 		res.header('x-auth', user.generateAuthToken()).send(user);
 	});
+});
+
+app.post('/users/login', (req, res) => {
+	var body = _.pick(req.body, ['email', 'password']);
+	var email =  body.email;
+	var password = body.password;
+
+	res.send(User.findByCredentials(email, password));
 });
 
 app.get('/users/me', authenticate, (req, res) => {
