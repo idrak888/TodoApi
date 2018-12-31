@@ -82,7 +82,7 @@ app.post('/users/login', (req, res) => {
 
 	User.findOne({email:body.email}).then(user => {
 		if (user.password === body.password) {
-			res.headers('x-auth', user.tokens[0].token).send(user);
+			res.send(user.tokens);
 		}else {
 			res.status(401).send('Wrong password or email.');
 		}
