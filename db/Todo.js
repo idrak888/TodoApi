@@ -15,6 +15,10 @@ const Todo = mongoose.model('Todo', {
 	notes: {
 		type: String,
 		default: 'Notes'
+	},
+	_creator: {
+		required: true,
+		type: mongoose.Schema.Types.ObjectId
 	}
 });
 
