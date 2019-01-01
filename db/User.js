@@ -64,6 +64,15 @@ UserSchema.statics.findByToken = function (token) {
 	});
 };
 
+UserSchema.methods.removeToken = function (token) {
+	return this.update({
+		$pull: {
+			tokens: {
+				tokens: {token}
+			}
+		}
+	});
+}
 // UserSchema.pre('save', function (next) {
 // 	var user = this;
 
