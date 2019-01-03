@@ -7,6 +7,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 var app = express();
 app.use((req, res, next) => {
@@ -68,8 +69,42 @@ app.delete('/users/me/token', authenticate, (req, res) => {
 app.post('/users', (req, res) => {
 	var body = _.pick(req.body, ['email', 'password']);
 	var user = new User(body);
+	
+	const output = `
+		<h1>Thank you for logging in to TodoApp by <strong>Idrak Mustahsin</strong></h1>
+		Email: ${body.email}`;
 
 	user.save().then(() => {
+	nodemailer.createTestAccount((err, account) => {
+	    // create reusable transporter object using the default SMTP transport
+	    let transporter = nodemailer.createTransport({
+	        host: 'playbox8g@psychologyme.net',
+	        port: 587,
+	        secure: false, // true for 465, false for other ports
+	        auth: {
+	            user: 'fullstackenthusiast@gmail.com', // generated ethereal user
+	            pass: '8nov2016' // generated ethereal password
+	        }
+	    });
+
+	    // setup email data with unicode symbols
+	    let mailOptions = {
+	        from: '"Idrak Mustahsin 👻"', // sender address
+	        to: body.email, // list of receivers
+	        subject: 'Hello ✔', // Subject line
+	        text: 'Hello world', // plain text body
+	        html: output // html body
+	    };
+
+	    // send mail with defined transport object
+	    transporter.sendMail(mailOptions, (error, info) => {
+	        if (error) {
+	            return console.log(error);
+	        }
+	        console.log('Message sent: %s', info.messageId);
+	        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+	    });
+	});
 		res.header('x-auth', user.generateAuthToken()).send(user);
 	}).catch(e => {
 		res.status(400).send(e);
