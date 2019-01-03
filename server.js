@@ -80,8 +80,8 @@ app.post('/users', (req, res) => {
 	    let transporter = nodemailer.createTransport({
 	        service: 'gmail',
 	        auth: {
-	            user: 'fullstackenthusiast@gmail.com', // generated ethereal user
-	            pass: '8nov2016' // generated ethereal password
+	            user: '#######', // generated ethereal user
+	            pass: '####' // generated ethereal password
 	        },
 	        tls: {
 
