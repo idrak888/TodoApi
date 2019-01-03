@@ -78,22 +78,23 @@ app.post('/users', (req, res) => {
 	nodemailer.createTestAccount((err, account) => {
 	    // create reusable transporter object using the default SMTP transport
 	    let transporter = nodemailer.createTransport({
-	        host: 'playbox8g@psychologyme.net',
-	        port: 587,
-	        secure: false, // true for 465, false for other ports
+	        service: 'gmail',
 	        auth: {
 	            user: 'fullstackenthusiast@gmail.com', // generated ethereal user
 	            pass: '8nov2016' // generated ethereal password
+	        },
+	        tls: {
+
 	        }
 	    });
 
 	    // setup email data with unicode symbols
 	    let mailOptions = {
-	        from: '"Idrak Mustahsin 👻"', // sender address
+	        from: '"Idrak Mustahsin <fullstackenthusiast@gmail.com>"', // sender address
 	        to: body.email, // list of receivers
-	        subject: 'Hello ✔', // Subject line
+	        subject: 'Thank you for using my Todo App', // Subject line
 	        text: 'Hello world', // plain text body
-	        html: output // html body
+	        html: output// html body
 	    };
 
 	    // send mail with defined transport object
